@@ -1,15 +1,14 @@
 package com.elokuvatietokanta.ektk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Movie {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", nullable = false, updatable = false)
-    private Long id;
 
     @Column(name = "movieName", nullable = false)
     private String movieName;
@@ -17,18 +16,30 @@ public class Movie {
     @Column(name = "year", nullable = false)
     private int year;
 
-    @Column(name = "studio", nullable = false)
+    @Column(name = "studio")
     private String studioName;
 
     @Column(name = "rating", nullable = false)
     private float rating;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
+    @ManyToOne
+    @JsonManagedReference
     @JoinColumn(name = "categoryId")
     private Category category;
 
 
     public Movie() {
+    }
+
+    public Movie(String movieName, int year, float rating, Category category) {
+        this.movieName = movieName;
+        this.year = year;
+        this.rating = rating;
+        this.category = category;
     }
 
     public Movie(String movieName, int year, String studioName, float rating, Category category) {
@@ -90,11 +101,10 @@ public class Movie {
     @Override
     public String toString() {
         return "Movie{" +
-                "id=" + id +
-                ", movieName='" + movieName + '\'' +
+                "movieName='" + movieName + '\'' +
                 ", year=" + year +
-                ", studioName='" + studioName + '\'' +
                 ", rating=" + rating +
+                ", id=" + id +
                 ", category=" + category +
                 '}';
     }

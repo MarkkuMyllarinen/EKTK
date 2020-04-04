@@ -11,15 +11,17 @@ public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long categoryId;
+
     private String name;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "category")
     @JsonBackReference
-    private List<Movie> Movies;
+    private List<Movie> movies;
 
-    public Category() {}
+    public Category() {
+    }
 
-    public Category(String name){
+    public Category(String name) {
         super();
         this.name = name;
     }
@@ -42,11 +44,11 @@ public class Category {
     }
 
     public List<Movie> getMovies() {
-        return Movies;
+        return movies;
     }
 
     public void setMovies(List<Movie> movies) {
-        Movies = movies;
+        this.movies = movies;
     }
 
     @Override
