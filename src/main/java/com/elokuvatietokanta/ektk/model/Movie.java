@@ -42,6 +42,12 @@ public class Movie {
         this.category = category;
     }
 
+    public Movie(String movieName, int year, float rating) {
+        this.movieName = movieName;
+        this.year = year;
+        this.rating = rating;
+    }
+
     public Movie(String movieName, int year, String studioName, float rating, Category category) {
         this.movieName = movieName;
         this.year = year;
