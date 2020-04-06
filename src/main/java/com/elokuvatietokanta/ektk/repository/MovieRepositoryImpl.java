@@ -12,12 +12,10 @@ public class MovieRepositoryImpl implements CustomMovieRepository {
     @Override
     public Movie findMovieByPartOfNameNonCaseSensitive(String movieName) {
         List<Movie> movieList = (List<Movie>) movieRepository.findAll();
-
         for (Movie movie : movieList) {
             boolean isPresent = movie.getMovieName().toLowerCase().indexOf(movieName.toLowerCase()) != -1 ? true : false;
             if (isPresent) return movie;
         }
-
         return null;
     }
 }
