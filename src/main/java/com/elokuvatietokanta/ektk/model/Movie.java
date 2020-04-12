@@ -1,8 +1,7 @@
 package com.elokuvatietokanta.ektk.model;
 
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.*;
 
 import javax.persistence.*;
 import java.util.List;
@@ -10,6 +9,10 @@ import java.util.List;
 @Entity
 public class Movie {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JoinColumn(name = "movie_id", nullable = false)
+    private Long id;
 
     @Column(name = "movieName", nullable = false)
     private String movieName;
@@ -17,23 +20,24 @@ public class Movie {
     @Column(name = "year", nullable = false)
     private int year;
 
-    @Column(name = "studio")
-    private String studioName;
-
     @Column(name = "rating", nullable = false)
     private float rating;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
 
-    @ManyToOne
     @JsonBackReference
-    @JoinColumn(name = "categoryId")
+    @ManyToOne(fetch = FetchType.EAGER)
     private Category category;
 
 
     public Movie() {
+    }
+
+    public Movie(Long id, String movieName, int year, float rating, Category category) {
+        this.id = id;
+        this.movieName = movieName;
+        this.year = year;
+        this.rating = rating;
+        this.category = category;
     }
 
     public Movie(String movieName, int year, float rating, Category category) {
@@ -43,17 +47,9 @@ public class Movie {
         this.category = category;
     }
 
-    public Movie(String movieName, int year, float rating) {
+    public Movie(String movieName, int year, Category category) {
         this.movieName = movieName;
         this.year = year;
-        this.rating = rating;
-    }
-
-    public Movie(String movieName, int year, String studioName, float rating, Category category) {
-        this.movieName = movieName;
-        this.year = year;
-        this.studioName = studioName;
-        this.rating = rating;
         this.category = category;
     }
 
@@ -79,14 +75,6 @@ public class Movie {
 
     public void setYear(int year) {
         this.year = year;
-    }
-
-    public String getStudioName() {
-        return studioName;
-    }
-
-    public void setStudioName(String studioName) {
-        this.studioName = studioName;
     }
 
     public float getRating() {

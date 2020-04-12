@@ -10,13 +10,14 @@ import java.util.List;
 
 public class Category {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long categoryId;
 
     private String name;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "category")
+
     @JsonManagedReference
+    @OneToMany
     private List<Movie> movies;
 
     public Category() {
@@ -27,6 +28,11 @@ public class Category {
         this.name = name;
     }
 
+    public Category(Long categoryId, String name, List<Movie> movies) {
+        this.categoryId = categoryId;
+        this.name = name;
+        this.movies = movies;
+    }
 
     public Long getCategoryId() {
         return categoryId;

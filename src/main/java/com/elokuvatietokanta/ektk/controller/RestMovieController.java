@@ -24,6 +24,7 @@ public class RestMovieController {
     }
 
 
+
     @RequestMapping(value = "/movies", method = RequestMethod.GET)
     public @ResponseBody
     List<Movie> returnRestMovieList() {
