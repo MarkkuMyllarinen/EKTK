@@ -20,31 +20,33 @@ public class Movie {
     @Column(name = "year", nullable = false)
     private int year;
 
-    @Column(name = "rating", nullable = false)
-    private float rating;
 
-
-    @JsonBackReference
     @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn
     private Category category;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn
+    @JsonManagedReference
+    private List<Rating> ratings;
+
 
 
     public Movie() {
     }
 
-    public Movie(Long id, String movieName, int year, float rating, Category category) {
+    public Movie(Long id, String movieName, int year, Category category) {
         this.id = id;
         this.movieName = movieName;
         this.year = year;
-        this.rating = rating;
         this.category = category;
     }
 
-    public Movie(String movieName, int year, float rating, Category category) {
+    public Movie(String movieName, int year, Category category, List<Rating> ratings) {
         this.movieName = movieName;
         this.year = year;
-        this.rating = rating;
         this.category = category;
+        this.ratings = ratings;
     }
 
     public Movie(String movieName, int year, Category category) {
@@ -77,14 +79,6 @@ public class Movie {
         this.year = year;
     }
 
-    public float getRating() {
-        return rating;
-    }
-
-    public void setRating(float rating) {
-        this.rating = rating;
-    }
-
     public Category getCategory() {
         return category;
     }
@@ -93,12 +87,19 @@ public class Movie {
         this.category = category;
     }
 
+    public List<Rating> getRatings() {
+        return ratings;
+    }
+
+    public void setRatings(List<Rating> ratings) {
+        this.ratings = ratings;
+    }
+
     @Override
     public String toString() {
         return "Movie{" +
                 "movieName='" + movieName + '\'' +
                 ", year=" + year +
-                ", rating=" + rating +
                 ", id=" + id +
                 ", category=" + category +
                 '}';

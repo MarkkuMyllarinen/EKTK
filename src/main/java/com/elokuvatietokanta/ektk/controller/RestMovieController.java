@@ -2,14 +2,16 @@ package com.elokuvatietokanta.ektk.controller;
 
 
 import com.elokuvatietokanta.ektk.model.Movie;
+import com.elokuvatietokanta.ektk.model.Rating;
 import com.elokuvatietokanta.ektk.repository.MovieRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
+@CrossOrigin
 @RestController
 public class RestMovieController {
 
@@ -48,6 +50,17 @@ public class RestMovieController {
     public @ResponseBody
     Movie editMovieRest(@RequestBody Movie movie) {
         return movieRepository.save(movie);
+    }
+
+    @RequestMapping(value = "/addrating/movieid={id}", method = RequestMethod.PUT)
+    public @ResponseBody
+    Optional<Movie> editMovieRest(@PathVariable Long id, @RequestBody List<Rating> rating) {
+
+        return movieRepository.findById(id)
+                .map(movie1 -> {
+                    movie1.setRatings(rating);
+                    return movieRepository.save(movie1);
+                });
     }
 
     @RequestMapping(value = "/movies", method = RequestMethod.DELETE)

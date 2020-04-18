@@ -1,6 +1,7 @@
 package com.elokuvatietokanta.ektk.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -16,8 +17,9 @@ public class Category {
     private String name;
 
 
-    @JsonManagedReference
     @OneToMany
+    @JsonIgnore
+    @JoinColumn
     private List<Movie> movies;
 
     public Category() {
