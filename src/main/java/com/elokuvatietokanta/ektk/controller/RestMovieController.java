@@ -26,33 +26,32 @@ public class RestMovieController {
     }
 
 
-
-    @RequestMapping(value = "/movies", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/movies", method = RequestMethod.GET)
     public @ResponseBody
     List<Movie> returnRestMovieList() {
         return (List<Movie>) movieRepository.findAll();
     }
 
 
-    @RequestMapping(value = "/movies", method = RequestMethod.POST)
+    @RequestMapping(value = "/api//movies", method = RequestMethod.POST)
     public @ResponseBody
     Movie saveMovieRest(@RequestBody Movie movie) {
         return movieRepository.save(movie);
     }
 
-    @RequestMapping(value = "/movielist", method = RequestMethod.POST)
+    @RequestMapping(value = "/api/movielist", method = RequestMethod.POST)
     public @ResponseBody
     List<Movie> saveMovieListRest(@RequestBody List<Movie> movie) {
         return (List<Movie>) movieRepository.saveAll(movie);
     }
 
-    @RequestMapping(value = "/movies", method = RequestMethod.PUT)
+    @RequestMapping(value = "/api/movies", method = RequestMethod.PUT)
     public @ResponseBody
     Movie editMovieRest(@RequestBody Movie movie) {
         return movieRepository.save(movie);
     }
 
-    @RequestMapping(value = "/addrating/movieid={id}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/api/addrating/movieid={id}", method = RequestMethod.PUT)
     public @ResponseBody
     Optional<Movie> editMovieRest(@PathVariable Long id, @RequestBody List<Rating> rating) {
 
@@ -63,13 +62,13 @@ public class RestMovieController {
                 });
     }
 
-    @RequestMapping(value = "/movies", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/api/movies", method = RequestMethod.DELETE)
     public @ResponseBody
     void deleteMovieRest(@RequestBody Movie movie) {
         movieRepository.delete(movie);
     }
 
-    @RequestMapping(value = "/movies/{name}", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/movies/{name}", method = RequestMethod.GET)
     public @ResponseBody
     Movie returnMovieByName(@PathVariable("name") String name) {
         if (movieRepository.findMovieByPartOfNameNonCaseSensitive(name) != null) {

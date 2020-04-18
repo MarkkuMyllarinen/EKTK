@@ -30,6 +30,7 @@ public class Movie {
     @JsonManagedReference
     private List<Rating> ratings;
 
+    private double avarageRating;
 
 
     public Movie() {
@@ -93,6 +94,24 @@ public class Movie {
 
     public void setRatings(List<Rating> ratings) {
         this.ratings = ratings;
+    }
+
+
+    public Double getAvarageRating() {
+
+        int value = 0;
+
+        for (Rating rating : ratings) {
+            value = rating.getValue() + value;
+        }
+
+        if (ratings.size() > 0) return 1.0 * value / ratings.size();
+        else return 0.0;
+
+    }
+
+    public void setAvarageRating(Double avarageRating) {
+        this.avarageRating = avarageRating;
     }
 
     @Override
