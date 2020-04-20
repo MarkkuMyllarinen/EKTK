@@ -21,9 +21,7 @@ public class UserCrud {
     @Bean
     public CommandLineRunner userDemo(UserRepository userRepository){
         return (args) -> {
-            log.info("Tallennetaan muutama kirja");
-            User user2 = new User("adminUser", "$2a$10$0MMwY.IQqpsVc1jC8u7IJ.2rT8b0Cd3b3sfIBGV2zfgnPGtT4r0.C", "ADMIN");
-            userRepository.save(user2);
+            log.info("STATUS OK !!!");
         };
     }
 }
