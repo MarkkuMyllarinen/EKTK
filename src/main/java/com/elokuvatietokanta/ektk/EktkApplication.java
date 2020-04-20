@@ -33,5 +33,15 @@ public class EktkApplication {
     }
 
 
+    @Bean
+    public CommandLineRunner ektkDemo(UserRepository userRepository) {
+        return (args) -> {
+
+            User user1 = new User("user", "$2a$06$3jYRJrg0ghaaypjZ/.g4SethoeA51ph3UD4kZi9oPkeMTpjKU5uo6", "USER");
+            userRepository.save(user1);
+
+
+        };
+    }
 
 }
