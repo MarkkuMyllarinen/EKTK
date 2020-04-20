@@ -55,9 +55,15 @@ public class RestMovieController {
     public @ResponseBody
     Optional<Movie> editMovieRest(@PathVariable Long id, @RequestBody List<Rating> rating) {
 
+        Movie movie = movieRepository.findMovieById(id);
+
+        List<Rating> temp = movie.getRatings();
+
+        temp.addAll(rating);
+
         return movieRepository.findById(id)
                 .map(movie1 -> {
-                    movie1.setRatings(rating);
+                    movie1.setRatings(temp);
                     return movieRepository.save(movie1);
                 });
     }

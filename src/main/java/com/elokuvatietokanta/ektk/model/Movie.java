@@ -4,7 +4,11 @@ package com.elokuvatietokanta.ektk.model;
 import com.fasterxml.jackson.annotation.*;
 
 import javax.persistence.*;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 @Entity
 public class Movie {
@@ -105,7 +109,17 @@ public class Movie {
             value = rating.getValue() + value;
         }
 
-        if (ratings.size() > 0) return 1.0 * value / ratings.size();
+
+
+        if (ratings.size() > 0){
+            DecimalFormatSymbols otherSymbols = new DecimalFormatSymbols(Locale.GERMAN);
+            otherSymbols.setDecimalSeparator('.');
+            otherSymbols.setGroupingSeparator('.');
+            DecimalFormat df = new DecimalFormat("#.0",otherSymbols);
+            Double temp = 1.0 * value / ratings.size();
+            String formatted = df.format(temp);
+            return Double.valueOf(formatted);
+        }
         else return 0.0;
 
     }
