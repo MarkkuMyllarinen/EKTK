@@ -33,7 +33,7 @@ public class RestMovieController {
     }
 
 
-    @RequestMapping(value = "/api//movies", method = RequestMethod.POST)
+    @RequestMapping(value = "/api/movies", method = RequestMethod.POST)
     public @ResponseBody
     Movie saveMovieRest(@RequestBody Movie movie) {
         return movieRepository.save(movie);
@@ -64,6 +64,7 @@ public class RestMovieController {
         return movieRepository.findById(id)
                 .map(movie1 -> {
                     movie1.setRatings(temp);
+                    movie1.setAvarageRating();
                     return movieRepository.save(movie1);
                 });
     }

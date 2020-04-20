@@ -34,7 +34,8 @@ public class Movie {
     @JsonManagedReference
     private List<Rating> ratings;
 
-    private double avarageRating;
+
+    private double avarageRating = 0.0;
 
 
     public Movie() {
@@ -103,29 +104,31 @@ public class Movie {
 
     public Double getAvarageRating() {
 
+        return this.avarageRating;
+    }
+
+    public Double calculateAvarageRating() {
+
         int value = 0;
 
         for (Rating rating : ratings) {
             value = rating.getValue() + value;
         }
 
-
-
-        if (ratings.size() > 0){
+        if (ratings.size() > 0) {
             DecimalFormatSymbols otherSymbols = new DecimalFormatSymbols(Locale.GERMAN);
             otherSymbols.setDecimalSeparator('.');
             otherSymbols.setGroupingSeparator('.');
-            DecimalFormat df = new DecimalFormat("#.0",otherSymbols);
+            DecimalFormat df = new DecimalFormat("#.0", otherSymbols);
             Double temp = 1.0 * value / ratings.size();
             String formatted = df.format(temp);
             return Double.valueOf(formatted);
-        }
-        else return 0.0;
+        } else return 0.0;
 
     }
 
-    public void setAvarageRating(Double avarageRating) {
-        this.avarageRating = avarageRating;
+    public void setAvarageRating() {
+        this.avarageRating = calculateAvarageRating();
     }
 
     @Override
