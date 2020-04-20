@@ -6,12 +6,13 @@ import java.util.List;
 
 
 @Entity
+@Table(name = "ektkusers")
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false, updatable = false)
-    private Long id;
+    @Column(name = "user_id", nullable = false, updatable = false)
+    private Long user_id;
 
     @Column(name = "username", nullable = false, unique = true)
     private String username;
@@ -21,9 +22,6 @@ public class User {
 
     @Column(name = "role", nullable = false)
     private String role;
-
-    @OneToMany
-    private List<Movie> movie;
 
 
     public User() {
@@ -36,12 +34,12 @@ public class User {
     }
 
 
-    public Long getId() {
-        return id;
+    public Long getUser_id() {
+        return user_id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setUser_id(Long user_id) {
+        this.user_id = user_id;
     }
 
     public String getUsername() {
@@ -66,5 +64,15 @@ public class User {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "user_id=" + user_id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", role='" + role + '\'' +
+                '}';
     }
 }
