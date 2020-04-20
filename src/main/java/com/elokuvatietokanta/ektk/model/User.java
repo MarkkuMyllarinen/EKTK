@@ -2,6 +2,7 @@ package com.elokuvatietokanta.ektk.model;
 
 
 import javax.persistence.*;
+import java.util.List;
 
 
 @Entity
@@ -20,6 +21,9 @@ public class User {
 
     @Column(name = "role", nullable = false)
     private String role;
+
+    @OneToMany
+    private List<Movie> movie;
 
 
     public User() {
