@@ -1,11 +1,14 @@
 package com.elokuvatietokanta.ektk.controller;
 
 
+import com.elokuvatietokanta.ektk.model.Category;
 import com.elokuvatietokanta.ektk.model.Movie;
 import com.elokuvatietokanta.ektk.model.Rating;
+import com.elokuvatietokanta.ektk.repository.CategoryRepository;
 import com.elokuvatietokanta.ektk.repository.MovieRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,8 +24,12 @@ public class RestMovieController {
     final
     MovieRepository movieRepository;
 
-    public RestMovieController(MovieRepository movieRepository) {
+    final
+    CategoryRepository categoryRepository;
+
+    public RestMovieController(MovieRepository movieRepository, CategoryRepository categoryRepository) {
         this.movieRepository = movieRepository;
+        this.categoryRepository = categoryRepository;
     }
 
 
@@ -73,6 +80,14 @@ public class RestMovieController {
     public @ResponseBody
     void deleteMovieRest(@RequestBody Movie movie) {
         movieRepository.delete(movie);
+    }
+
+    @RequestMapping(value = "/api/addcategorylist", method = RequestMethod.POST)
+    public @ResponseBody
+    List<Category> addCategoryList(@RequestBody List<Category> categories){
+
+       return (List<Category>) categoryRepository.saveAll(categories);
+
     }
 
     @RequestMapping(value = "/api/movies/{name}", method = RequestMethod.GET)
