@@ -2,7 +2,7 @@
 Elokuva Tietokanta
 
 
-My movie database where I use Java Spring back-end and React front-end. 
+My movie database where I use Java Spring backend and React frontend. 
 
 
 ### If you want to view live website of this project please start the back-end first. Project is deployed on Heroku and free Heroku applications takes time to wake up!
